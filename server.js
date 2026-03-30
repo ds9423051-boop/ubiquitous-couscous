@@ -91,13 +91,3 @@ app.get('/logs', (req, res) => {
 app.get('/logs.json', (req, res) => res.json(logs));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-```
-
----
-
-### 3本目：`.gitignore`
-
-ファイル名: `.gitignore`
-```
-node_modules/
-logs/
