@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KURA MARKET — 架空テストショップ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --dark: #1a1410;
+      --accent: #c84b2f;
+      --muted: #8a8070;
+      --card: #fffdf8;
+      --border: #e0d8c8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--dark); font-family: 'DM Sans', sans-serif; }
+
+    /* BANNER */
+    .test-banner {
+      background: var(--accent);
+      color: #fff;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+    }
+
+    /* NAV */
+    nav {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 400; transition: color .2s; }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-right button {
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background .2s;
+    }
+    .nav-right button:hover { background: var(--accent); }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .hero-text {
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .hero-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 52px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      max-width: 360px;
+    }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 14px 32px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+      transition: opacity .2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .hero-image {
+      background: #e8e0d0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 60% 40%, #d4c8b0 0%, #e8e0d0 70%);
+    }
+    .hero-image span { position: relative; z-index: 1; }
+
+    /* CATEGORIES */
+    .section { padding: 64px 48px; }
+    .section-title {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .section-sub { color: var(--muted); font-size: 14px; margin-bottom: 36px; }
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .cat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, transform .2s;
+    }
+    .cat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .cat-icon { font-size: 36px; margin-bottom: 12px; }
+    .cat-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .cat-count { font-size: 12px; color: var(--muted); }
+
+    /* PRODUCTS */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: box-shadow .2s;
+      cursor: pointer;
+    }
+    .product-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+    .product-img {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      background: #f0ebe0;
+    }
+    .product-body { padding: 16px; }
+    .product-tag { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .product-name { font-size: 15px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; }
+    .product-rating { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .product-rating span { color: #e8a020; }
+    .product-price { font-size: 18px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+    .product-original { font-size: 12px; color: var(--muted); text-decoration: line-through; margin-bottom: 12px; }
+    .btn-add {
+      width: 100%;
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 10px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: background .2s;
+      letter-spacing: 0.05em;
+    }
+    .btn-add:hover { background: var(--accent); }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--card);
+      padding: 40px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      border-top: 4px solid var(--accent);
+    }
+    .modal-icon { font-size: 48px; margin-bottom: 16px; }
+    .modal-title { font-family: 'Shippori Mincho', serif; font-size: 22px; margin-bottom: 12px; }
+    .modal-text { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 24px; }
+    .modal-close {
+      background: var(--dark);
+      color: #fff;
+      border: none;
+      padding: 12px 32px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+    }
+
+    /* BANNER SECTION */
+    .promo-banner {
+      background: var(--dark);
+      color: #fff;
+      padding: 64px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .promo-banner h2 { font-family: 'Shippori Mincho', serif; font-size: 32px; margin-bottom: 8px; }
+    .promo-banner p { color: #a09880; font-size: 15px; }
+    .btn-outline {
+      border: 1px solid #fff;
+      color: #fff;
+      background: transparent;
+      padding: 14px 32px;
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* FOOTER */
+    footer {
+      background: #12100e;
+      color: #6a6050;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-logo { font-family: 'Shippori Mincho', serif; font-size: 20px; color: #fff; margin-bottom: 12px; }
+    .footer-desc { font-size: 13px; line-height: 1.7; }
+    .footer-col h4 { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: #a09080; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { font-size: 13px; margin-bottom: 8px; cursor: pointer; transition: color .2s; }
+    .footer-col li:hover { color: #fff; }
+    .footer-bottom {
+      background: #0d0b09;
+      text-align: center;
+      padding: 16px;
+      font-size: 12px;
+      color: #4a4038;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+    .product-card { animation: fadeIn .4s ease both; }
+    .product-card:nth-child(2) { animation-delay: .05s; }
+    .product-card:nth-child(3) { animation-delay: .1s; }
+    .product-card:nth-child(4) { animation-delay: .15s; }
+  </style>
+</head>
+<body>
+
+<div class="test-banner">
+  ⚠️ これはAIクローラーIPアドレス調査用のテストサイトです。実際の購入はできません。
+</div>
+
+<nav>
+  <a href="#" class="logo">KURA <span>MARKET</span></a>
+  <ul class="nav-links">
+    <li><a href="#">食品・飲料</a></li>
+    <li><a href="#">生活雑貨</a></li>
+    <li><a href="#">ファッション</a></li>
+    <li><a href="#">電子機器</a></li>
+    <li><a href="#">セール</a></li>
+  </ul>
+  <div class="nav-right">
+    <button onclick="showModal()">🛒 カート (0)</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">2026年 春の新作コレクション</div>
+    <h1 class="hero-title">暮らしに<br>上質を。</h1>
+    <p class="hero-sub">厳選した日本各地の逸品を、あなたの元へ。食・住・衣をテーマにしたセレクトショップ。</p>
+    <a href="#" class="btn-primary" onclick="showModal(); return false;">今すぐ購入する</a>
+  </div>
+  <div class="hero-image"><span>🏮</span></div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">カテゴリーから探す</h2>
+  <p class="section-sub">お気に入りのジャンルをお選びください</p>
+  <div class="categories">
+    <div class="cat-card" onclick="showModal()">
+      <div class="cat-icon">🍱</div>
+      <div class="cat-name">食品・グルメ</div>
+      <div class="cat-count">1,234点</div>
+    </div>
+    <div class="cat-card" onclick="showModal()">
+      <div class="cat-icon">🏠</div>
+      <div class="cat-name">インテリア</div>
+      <div class="cat-count">856点</div>
+    </div>
+    <div class="cat-card" onclick="showModal()">
+      <div class="cat-icon">👘</div>
+      <div class="cat-name">ファッション</div>
+      <div class="cat-count">2,109点</div>
+    </div>
+    <div class="cat-card" onclick="showModal()">
+      <div class="cat-icon">📱</div>
+      <div class="cat-name">電子機器</div>
+      <div class="cat-count">543点</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 0;">
+  <h2 class="section-title">おすすめ商品</h2>
+  <p class="section-sub">今週の人気アイテム</p>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img">🍵</div>
+      <div class="product-body">
+        <div class="product-tag">京都産</div>
+        <div class="product-name">宇治抹茶 プレミアム缶 100g</div>
+        <div class="product-rating"><span>★★★★★</span> (128)</div>
+        <div class="product-price">¥3,280</div>
+        <div class="product-original">¥4,500</div>
+        <button class="btn-add" onclick="showModal()">カートに追加</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🪴</div>
+      <div class="product-body">
+        <div class="product-tag">職人手作り</div>
+        <div class="product-name">信楽焼 花瓶 中型 グレー</div>
+        <div class="product-rating"><span>★★★★☆</span> (64)</div>
+        <div class="product-price">¥12,800</div>
+        <div class="product-original">¥15,000</div>
+        <button class="btn-add" onclick="showModal()">カートに追加</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🧴</div>
+      <div class="product-body">
+        <div class="product-tag">無添加</div>
+        <div class="product-name">北海道産 馬油クリーム 50ml</div>
+        <div class="product-rating"><span>★★★★★</span> (302)</div>
+        <div class="product-price">¥2,180</div>
+        <div class="product-original">¥2,800</div>
+        <button class="btn-add" onclick="showModal()">カートに追加</button>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">📚</div>
+      <div class="product-body">
+        <div class="product-tag">限定品</div>
+        <div class="product-name">和紙ノート 3冊セット A5</div>
+        <div class="product-rating"><span>★★★★☆</span> (87)</div>
+        <div class="product-price">¥1,980</div>
+        <div class="product-original">¥2,400</div>
+        <button class="btn-add" onclick="showModal()">カートに追加</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="promo-banner">
+  <div>
+    <h2>会員登録で10%OFF</h2>
+    <p>初回購入クーポンをプレゼント中</p>
+  </div>
+  <button class="btn-outline" onclick="showModal()">無料で会員登録する</button>
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">KURA MARKET</div>
+    <p class="footer-desc">日本各地の職人・生産者と直接つながり、<br>本物の品質をお届けするセレクトショップ。<br><br>※このサイトはテスト用です。</p>
+  </div>
+  <div class="footer-col">
+    <h4>ショップ</h4>
+    <ul>
+      <li>新着商品</li>
+      <li>ランキング</li>
+      <li>セール</li>
+      <li>ギフト</li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>サポート</h4>
+    <ul>
+      <li>よくある質問</li>
+      <li>配送について</li>
+      <li>返品・交換</li>
+      <li>お問い合わせ</li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>会社情報</h4>
+    <ul>
+      <li>会社概要</li>
+      <li>採用情報</li>
+      <li>プライバシー</li>
+      <li>利用規約</li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  © 2026 KURA MARKET — これはAIクローラーIPアドレス調査用のテストサイトです。実際の販売は行っておりません。
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">🚫</div>
+    <div class="modal-title">購入できません</div>
+    <p class="modal-text">
+      このサイトはAIクローラーのIPアドレス調査用テストサイトです。<br>
+      実際の商品販売・購入機能はありません。
+    </p>
+    <button class="modal-close" onclick="closeModal()">閉じる</button>
+  </div>
+</div>
+
+<script>
+  function showModal() {
+    document.getElementById('modal').classList.add('active');
+  }
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+</script>
+</body>
+</html>
