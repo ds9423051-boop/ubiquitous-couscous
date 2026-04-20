@@ -37,6 +37,22 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/b', (req, res) => {
+  res.send(`
+  <!DOCTYPE html>
+  <html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>B site</title>
+  </head>
+  <body style="font-family:sans-serif; padding:40px;">
+    <h1>遷移先ページ（B）</h1>
+    <p>ここはリダイレクト後のページです。</p>
+  </body>
+  </html>
+  `);
+});
+
 app.get('/logs', (req, res) => {
     const rows = [...logs].reverse().map((l, i) => `
         <tr>
