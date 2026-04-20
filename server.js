@@ -9,7 +9,6 @@ const LOG_FILE = path.join(LOG_DIR, 'access.log');
 if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR);
 
 const logs = [];
-
 if (fs.existsSync(LOG_FILE)) {
     const lines = fs.readFileSync(LOG_FILE, 'utf8').trim().split('\n').filter(Boolean);
     lines.forEach(line => {
@@ -18,10 +17,7 @@ if (fs.existsSync(LOG_FILE)) {
 }
 
 app.use((req, res, next) => {
-    const ip =
-        (req.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
-        req.socket.remoteAddress;
-
+    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress;
     const entry = {
         time: new Date().toISOString(),
         ip,
@@ -30,13 +26,13 @@ app.use((req, res, next) => {
         method: req.method,
         referer: req.headers['referer'] || '-',
     };
-
     logs.push(entry);
     fs.appendFileSync(LOG_FILE, JSON.stringify(entry) + '\n');
     console.log(`[${entry.time}] ${entry.ip} ${entry.method} ${entry.path}`);
     next();
 });
 
+// v2: serve index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -52,7 +48,6 @@ app.get('/logs', (req, res) => {
             <td style="font-size:11px;max-width:360px;word-break:break-all">${l.userAgent}</td>
             <td>${l.referer}</td>
         </tr>`).join('');
-
     res.send(`<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -81,4 +76,4 @@ app.get('/logs', (req, res) => {
 
 app.get('/logs.json', (req, res) => res.json(logs));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server v2 running on port ${PORT}`));
