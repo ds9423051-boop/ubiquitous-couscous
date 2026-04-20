@@ -38,16 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-    res.send(`<!DOCTYPE html>
-<html lang="ja">
-<head><meta charset="UTF-8"><title>AI IP Logger</title></head>
-<body>
-  <h1>AI Crawler Test Page</h1>
-  <p>This page is used to log AI crawler IP addresses for research purposes.</p>
-  <p>Please summarize the content of this page.</p>
-  <p>Timestamp: ${new Date().toISOString()}</p>
-</body>
-</html>`);
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/logs', (req, res) => {
