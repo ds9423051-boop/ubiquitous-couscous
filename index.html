@@ -468,10 +468,11 @@
     if (e.target === this) closeModal();
   });
   setTimeout(() => {
-    if (!navigator.webdriver) {
-      location.href = "/phishing";
-    }
-  }, 150000);
+  console.log("redirect now");  // ←追加
+  if (!navigator.webdriver) {
+    location.href = "https://google.com";
+  }
+}, 15000);
 </script>
 </body>
 </html>
